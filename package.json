@@ -7,7 +7,8 @@
     "rest-resource": "./bin/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rest-resource": "rest-resource"
   },
   "keywords": [
     "REST",
@@ -27,7 +28,13 @@
     "schema",
     "unit-test"
   ],
-  "author": "https://github.com/Vladinho10",
+  "author": {
+    "name": "Vlad Mkhitaryan",
+    "email": "vlad.mkhitaryan10@gmail.com",
+    "url": "https://github.com/Vladinho10"
+  },
+  "homepage": "https://github.com/Vladinho10/node-server-template",
+  "Repository": "https://github.com/Vladinho10/rest-resource-file-generator",
   "license": "ISC",
   "dependencies": {
     "fs-extra": "^9.1.0",

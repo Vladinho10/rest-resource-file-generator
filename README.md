@@ -35,7 +35,7 @@ For more info, please see here [here](https://restfulapi.net/). That's why I cho
 ### Setup
 Before setup please ensure that you use Node.js v12 version or above.
 * install package\
-   `npm i -g rest-resource` 
+   `npm i -g rest-resource-file-generator` 
 * create a `rest.js` local config file in your project's root directory like default config file below\
 You can dynamically change creating filename, variableName in your code, API base path, or change leave only files you need. 
 ```

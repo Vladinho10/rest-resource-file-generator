@@ -5,7 +5,6 @@
 * [About RESTful](#about-RESTful)
 * [Setup](#setup)
 * [Usage](#usage)
-* [Architecture guide](#architecture-guide)
 
 ### General info
 As a backend developer all we know that every time when we want to add new API, new logic, new CRUD, we create some file and write into them some codes.\
@@ -34,8 +33,10 @@ For more info, please see here [here](https://restfulapi.net/). That's why I cho
 
 ### Setup
 Before setup please ensure that you use Node.js v12 version or above.
-* install package\
-   `npm i -g rest-resource-file-generator` 
+* install package
+```
+  npm i -g rest-resource-file-generator
+```
 * create a `rest.js` local config file in your project's root directory like default config file below\
 You can dynamically change creating filename, variableName in your code, API base path, or change leave only files you need. 
 ```
@@ -87,7 +88,7 @@ There is an only one command `rest resource`, but there are some flags what you 
 `-F` fields. It must be the last flag. Its values (and the rest values) are mongoose and swagger schemas configs.  
 Let's see on example.
 
-<img src="./files/command-line.png"  alt="command-line"/> 
+<img src="https://github.com/Vladinho10/rest-resource-file-generator/blob/main/files/command-line.png?raw=true"  alt="command-line"/> 
 
 or you can write just in one line using this syntax.
 ```
@@ -95,11 +96,11 @@ rest-resource -N user -F name--type:String-required:true-minLength:3 age--type:N
 ```
 It will create all your files like this hierarchy.
 
-<img src="./files/created-files.png"  alt="created-files"/>
+<img src="https://github.com/Vladinho10/rest-resource-file-generator/blob/main/files/created-files.png?raw=true"  alt="created-files"/>
 
 If you wanted to generate a controller file, it will look like
 
-<img src="./files/controller.png"  alt="controller"/> 
+<img src="https://github.com/Vladinho10/rest-resource-file-generator/blob/main/files/controller.png?raw=true"  alt="controller"/> 
 
 
 List of mongoose supported options 

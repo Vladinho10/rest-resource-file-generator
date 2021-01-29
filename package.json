@@ -1,5 +1,5 @@
 {
-  "name": "rest-resource",
+  "name": "rest-resource-file-generator",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/create.js",
@@ -9,7 +9,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "REST",
+    "RESTful",
+    "API",
+    "generator",
+    "file",
+    "directory",
+    "resource",
+    "file-generator",
+    "controller",
+    "service",
+    "model",
+    "swagger",
+    "ctrl",
+    "srv",
+    "schema",
+    "unit-test"
+  ],
   "author": "https://github.com/Vladinho10",
   "license": "ISC",
   "dependencies": {

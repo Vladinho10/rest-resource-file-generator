@@ -28,7 +28,6 @@ const mongooseSchemaTypes = [
 const { objects } = require('./general');
 
 module.exports = function (stringFields) {
-    // rest-resource -N book -F title--type:string-minLength:10 year--type:Number-min:1900
     const fields = {};
 
     for (const stringField of stringFields) {

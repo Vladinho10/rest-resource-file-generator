@@ -9,13 +9,13 @@
 
 ### General info
 As a backend developer all we know that every time when we want to add new API, new logic, new CRUD, we create some file and write into them some codes.\
-For example when we what to create a logic ((let's call it `resource`) about user, we create
-a router. \
+For example when we what to create a logic (let's call it `resource`) about user, we create
+a router. 
 ```
     userRt.get('/v1/users', UserCtrl.getMany);
     userRt.post('/v1/users', UserCtrl.post);
 ```
-a controller. \
+a controller. 
 ```
     async getMany(req, res) {
      // here should be your code, where it's called service or db model or smth else
@@ -25,7 +25,7 @@ a controller. \
     }
 ```
 then we usually create a service, a model, a test, swagger schema and so on. Almost 6-7 files every time.
-So this package allows you to generate all this files at once just call a CLI command and be make your life easy )) ! 
+So this package allows you to generate all this files at once just call a CLI command and be make your life easy :)  
 
 
 ### About RESTful
@@ -83,19 +83,51 @@ If you don't create local config file, it'll be created from global configuratio
 There is an only one command `rest resource`, but there are some flags what you need to know.
 
 `-N` name. Its value is the resource name.   
-`-LR` local restrc. If its value is `yes`, it says that the local restrc.js file exists. Otherwise, it uses global configs.   
+`-LR` local restrc.js file existence. If its value is `yes`, it says that the local restrc.js file exists. Otherwise, it uses global configs.   
 `-F` fields. It must be the last flag. Its values (and the rest values) are mongoose and swagger schemas configs.  
 Let's see on example.
 
 <img src="./files/command-line.png"  alt="command-line"/> 
 
-or you can write just in one line.
+or you can write just in one line using this syntax.
 ```
-rest-resource -N book -F title--type:string-minLength:10 year--type:Number-min:1900
+rest-resource -N user -F name--type:String-required:true-minLength:3 age--type:Number-min:13 email--type:String-unique:true
 ```
 It will create all your files like this hierarchy.
 
 <img src="./files/created-files.png"  alt="created-files"/>
 
+If you wanted to generate a controller file, it will look like
+
+<img src="./files/controller.png"  alt="controller"/> 
 
 
+List of mongoose supported options 
+```
+    'type',
+    'required',
+    'default',
+    'index',
+    'unique',
+    'sparse',
+    'lowercase',
+    'uppercase',
+    'trim',
+    'minLength',
+    'maxLength',
+    'min',
+    'max'
+```
+List of mongoose supported options (please be careful about the register).
+```
+    'String',
+    'Number',
+    'Date',
+    'Buffer',
+    'Boolean',
+    'Map',
+    'Schema.Types.Mixed',
+    'Schema.Types.ObjectId',
+    'Schema.Types.Decimal128',
+```
+These lists will be expanded in the future.

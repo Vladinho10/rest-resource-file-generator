@@ -1,11 +1,14 @@
 'use strict';
+const { strings } = require('./helpers/general');
+
 module.exports = function (resourceName) {
-    const PascalCaseName = resourceName[0].toUpperCase() + resourceName.slice(1);
+    const camelCaseName = strings.toCamelCase(resourceName);
+    const PascalCaseName = strings.toPascalCase(camelCaseName);
 
     return {
         routers: {
             fileName: `routers/${resourceName}-rt.js`,
-            variableName: `${resourceName}Rt`,
+            variableName: `${camelCaseName}Rt`,
             controllersDir: '../controllers',
             basePath: 'v1',
         },
@@ -18,10 +21,31 @@ module.exports = function (resourceName) {
             fileName: `services/${resourceName}-srv.js`,
             variableName: `${PascalCaseName}Srv`,
             modelsDir: '../dal/models',
+            fileBody: `class %s {
+    static async readOne() {
+
+    }
+
+    static async readMany() {
+
+    }
+
+    static async createOne() {
+
+    }
+
+    static async updateOne() {
+
+    }
+
+    static async removeOne() {
+
+    }
+}`,
         },
         models: {
             fileName: `dal/models/${resourceName}.js`,
-            variableName: `${PascalCaseName}`,
+            variableName: `${camelCaseName}`,
         },
         swaggerSchemas: {
             fileName: `docs/swagger/schemas/${resourceName}-schema.json`,
@@ -32,6 +56,7 @@ module.exports = function (resourceName) {
         unitTests: {
             fileName: `tests/unit/${resourceName}-test.js`,
             controllersDir: '../controllers',
+            variableName: `${PascalCaseName}`,
         },
     };
 };

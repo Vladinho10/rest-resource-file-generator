@@ -2,9 +2,8 @@
 const { strings } = require('../helpers/general');
 
 module.exports = function (resourceName, { unitTests = {}, controllers = {} }) {
-    const PascalCaseName = strings.toPascalCase(resourceName);
-    const { controllersDir = '../../controllers' } = unitTests;
-    const { variableName: controller = `${PascalCaseName}Ctrl` } = controllers;
+    const { controllersDir = '../../controllers', variableName } = unitTests;
+    const { variableName: controller = `${variableName}Ctrl` } = controllers;
 
     return `'use strict';
 const sinon = require('sinon');
@@ -33,7 +32,7 @@ before(() => {
     global.CustomError = CustomError;
 });
 
-describe('${PascalCaseName}', () => {
+describe('${variableName}', () => {
     describe('#getMany', () => {
         it('should return status code 200', async () => {
 

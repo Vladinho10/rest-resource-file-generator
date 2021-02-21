@@ -1,21 +1,25 @@
 'use strict';
 const pluralize = require('pluralize');
-const { strings } = require('../helpers/general');
 
-module.exports = function (name) {
-    const camelCaseName = strings.toCamelCase(name);
-    const pascalCaseName = strings.toPascalCase(camelCaseName);
-    const pluralizedName = pluralize.plural(name);
+module.exports = function ({ swaggerPaths }) {
+    const {
+        resourceName,
+        camelCaseName,
+        PascalCaseName,
+        basePath,
+    } = swaggerPaths;
+
+    const pluralizedName = pluralize.plural(resourceName);
 
     const paths = {
-        [`${pluralizedName}`]: {
+        [`${basePath}/${pluralizedName}`]: {
             get: {
                 summary: 'Get many resources',
-                tags: [`${pascalCaseName}`],
+                tags: [`${PascalCaseName}`],
                 parameters: [
                     {
                         in: 'query',
-                        camelCaseName: 'limit',
+                        name: 'limit',
                         description: 'this is limit',
                         required: false,
                         schema: {
@@ -24,7 +28,7 @@ module.exports = function (name) {
                     },
                     {
                         in: 'query',
-                        camelCaseName: 'offset',
+                        name: 'offset',
                         description: 'this is offset',
                         required: false,
                         schema: {
@@ -33,7 +37,7 @@ module.exports = function (name) {
                     },
                     {
                         in: 'query',
-                        camelCaseName: 'sort',
+                        name: 'sort',
                         description: 'this is sort',
                         required: false,
                         schema: {
@@ -56,7 +60,7 @@ module.exports = function (name) {
             },
             post: {
                 summary: 'Create a new resource',
-                tags: [`${pascalCaseName}`],
+                tags: [`${PascalCaseName}`],
                 requestBody: {
                     required: true,
                     content: {
@@ -82,7 +86,7 @@ module.exports = function (name) {
             },
             put: {
                 summary: 'Update many resources',
-                tags: [`${pascalCaseName}`],
+                tags: [`${PascalCaseName}`],
                 requestBody: {
                     required: true,
                     content: {
@@ -96,7 +100,7 @@ module.exports = function (name) {
                 parameters: [
                     {
                         in: 'body',
-                        camelCaseName: 'ids',
+                        name: 'ids',
                         description: 'array of ids',
                         required: false,
                         schema: {
@@ -119,11 +123,11 @@ module.exports = function (name) {
             },
             patch: {
                 summary: 'Delete many resource',
-                tags: [`${pascalCaseName}`],
+                tags: [`${PascalCaseName}`],
                 parameters: [
                     {
                         in: 'query',
-                        camelCaseName: 'limit',
+                        name: 'limit',
                         description: 'this is limit',
                         required: false,
                         schema: {
@@ -141,10 +145,10 @@ module.exports = function (name) {
         [`/${pluralizedName}/{_id}`]: {
             get: {
                 summary: 'Get a resource by id',
-                tags: [`${pascalCaseName}`],
+                tags: [`${PascalCaseName}`],
                 parameters: [
                     {
-                        camelCaseName: '_id',
+                        name: '_id',
                         in: 'path',
                         description: 'resource\'s id',
                         required: true,
@@ -166,10 +170,10 @@ module.exports = function (name) {
             },
             put: {
                 summary: 'update a resource by id',
-                tags: [`${pascalCaseName}`],
+                tags: [`${PascalCaseName}`],
                 parameters: [
                     {
-                        camelCaseName: '_id',
+                        name: '_id',
                         in: 'path',
                         description: 'resource\'s id',
                         required: true,
@@ -191,10 +195,10 @@ module.exports = function (name) {
             },
             delete: {
                 summary: 'delete a resource by id',
-                tags: [`${pascalCaseName}`],
+                tags: [`${PascalCaseName}`],
                 parameters: [
                     {
-                        camelCaseName: '_id',
+                        name: '_id',
                         in: 'path',
                         description: 'resource\'s id',
                         required: true,

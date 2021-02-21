@@ -1,12 +1,15 @@
 'use strict';
 const pluralize = require('pluralize');
-const { strings } = require('../helpers/general');
 
-module.exports = function (resourceName, { routers = {}, controllers = {} }) {
+module.exports = function ({ routers = {}, controllers = {} }) {
+    const {
+        resourceName,
+        PascalCaseName,
+        variableName: router,
+        controllersDir = '../controllers',
+        basePath = 'v1',
+    } = routers;
     const pluralizedName = pluralize.plural(resourceName);
-    const camelCaseName = strings.toCamelCase(resourceName);
-    const PascalCaseName = strings.toPascalCase(camelCaseName);
-    const { variableName: router, controllersDir = '../controllers', basePath = 'v1' } = routers;
     const { variableName: controller = `${PascalCaseName}Ctrl` } = controllers;
 
     return `'use strict';

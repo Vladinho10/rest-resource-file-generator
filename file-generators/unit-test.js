@@ -1,7 +1,5 @@
 'use strict';
-const { strings } = require('../helpers/general');
-
-module.exports = function (resourceName, { unitTests = {}, controllers = {} }) {
+module.exports = function ({ unitTests = {}, controllers = {} }) {
     const { controllersDir = '../../controllers', variableName } = unitTests;
     const { variableName: controller = `${variableName}Ctrl` } = controllers;
 

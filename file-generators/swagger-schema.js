@@ -1,4 +1,4 @@
 'use strict';
-module.exports = function (name, configs, fields) {
+module.exports = function (configs, fields) {
     return JSON.stringify({ properties: fields }, null, 2);
 };

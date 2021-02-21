@@ -2,10 +2,12 @@
 const { strings } = require('../helpers/general');
 
 module.exports = function (resourceName = '', { models }, fields = {}) {
+    const camelCaseName = strings.toCamelCase(resourceName);
+
     const mongooseSchema = JSON.stringify({ ...fields,
         created: { type: 'Date', default: Date.now }, updated: { type: 'Date', default: Date.now },
     }, null, 2);
-    const { variableName: camelCaseName, fileBody } = models;
+    const { fileBody } = models;
     const pascalCaseName = strings.toPascalCase(camelCaseName);
 
     return `'use strict';

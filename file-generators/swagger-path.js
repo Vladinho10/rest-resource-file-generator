@@ -3,7 +3,8 @@ const pluralize = require('pluralize');
 const { strings } = require('../helpers/general');
 
 module.exports = function (name) {
-    const pascalCaseName = strings.toPascalCase(name);
+    const camelCaseName = strings.toCamelCase(name);
+    const pascalCaseName = strings.toPascalCase(camelCaseName);
     const pluralizedName = pluralize.plural(name);
 
     const paths = {
@@ -14,7 +15,7 @@ module.exports = function (name) {
                 parameters: [
                     {
                         in: 'query',
-                        name: 'limit',
+                        camelCaseName: 'limit',
                         description: 'this is limit',
                         required: false,
                         schema: {
@@ -23,7 +24,7 @@ module.exports = function (name) {
                     },
                     {
                         in: 'query',
-                        name: 'offset',
+                        camelCaseName: 'offset',
                         description: 'this is offset',
                         required: false,
                         schema: {
@@ -32,7 +33,7 @@ module.exports = function (name) {
                     },
                     {
                         in: 'query',
-                        name: 'sort',
+                        camelCaseName: 'sort',
                         description: 'this is sort',
                         required: false,
                         schema: {
@@ -46,7 +47,7 @@ module.exports = function (name) {
                         content: {
                             'application/json': {
                                 schema: {
-                                    $ref: `#components/schemas/${name}Schema`,
+                                    $ref: `#components/schemas/${camelCaseName}Schema`,
                                 },
                             },
                         },
@@ -61,7 +62,7 @@ module.exports = function (name) {
                     content: {
                         'application/json': {
                             schema: {
-                                $ref: `#components/schemas/${name}Schema`,
+                                $ref: `#components/schemas/${camelCaseName}Schema`,
                             },
                         },
                     },
@@ -72,7 +73,7 @@ module.exports = function (name) {
                         content: {
                             'application/json': {
                                 schema: {
-                                    $ref: `#components/schemas/${name}Schema`,
+                                    $ref: `#components/schemas/${camelCaseName}Schema`,
                                 },
                             },
                         },
@@ -87,7 +88,7 @@ module.exports = function (name) {
                     content: {
                         'application/json': {
                             schema: {
-                                $ref: `#components/schemas/${name}Schema`,
+                                $ref: `#components/schemas/${camelCaseName}Schema`,
                             },
                         },
                     },
@@ -95,7 +96,7 @@ module.exports = function (name) {
                 parameters: [
                     {
                         in: 'body',
-                        name: 'ids',
+                        camelCaseName: 'ids',
                         description: 'array of ids',
                         required: false,
                         schema: {
@@ -109,7 +110,7 @@ module.exports = function (name) {
                         content: {
                             'application/json': {
                                 schema: {
-                                    $ref: `#components/schemas/${name}Schema`,
+                                    $ref: `#components/schemas/${camelCaseName}Schema`,
                                 },
                             },
                         },
@@ -122,7 +123,7 @@ module.exports = function (name) {
                 parameters: [
                     {
                         in: 'query',
-                        name: 'limit',
+                        camelCaseName: 'limit',
                         description: 'this is limit',
                         required: false,
                         schema: {
@@ -143,7 +144,7 @@ module.exports = function (name) {
                 tags: [`${pascalCaseName}`],
                 parameters: [
                     {
-                        name: '_id',
+                        camelCaseName: '_id',
                         in: 'path',
                         description: 'resource\'s id',
                         required: true,
@@ -156,7 +157,7 @@ module.exports = function (name) {
                         content: {
                             'application/json': {
                                 schema: {
-                                    $ref: `#components/schemas/${name}Schema`,
+                                    $ref: `#components/schemas/${camelCaseName}Schema`,
                                 },
                             },
                         },
@@ -168,7 +169,7 @@ module.exports = function (name) {
                 tags: [`${pascalCaseName}`],
                 parameters: [
                     {
-                        name: '_id',
+                        camelCaseName: '_id',
                         in: 'path',
                         description: 'resource\'s id',
                         required: true,
@@ -181,7 +182,7 @@ module.exports = function (name) {
                         content: {
                             'application/json': {
                                 schema: {
-                                    $ref: `#components/schemas/${name}Schema`,
+                                    $ref: `#components/schemas/${camelCaseName}Schema`,
                                 },
                             },
                         },
@@ -193,7 +194,7 @@ module.exports = function (name) {
                 tags: [`${pascalCaseName}`],
                 parameters: [
                     {
-                        name: '_id',
+                        camelCaseName: '_id',
                         in: 'path',
                         description: 'resource\'s id',
                         required: true,

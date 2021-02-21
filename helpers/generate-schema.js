@@ -13,6 +13,7 @@ const mongooseSupportedOptions = [
     'maxLength',
     'min',
     'max',
+    'ref',
 ];
 const mongooseSchemaTypes = [
     'String',
@@ -21,6 +22,7 @@ const mongooseSchemaTypes = [
     'Buffer',
     'Boolean',
     'Map',
+    'Schema.ObjectId',
     'Schema.Types.Mixed',
     'Schema.Types.ObjectId',
     'Schema.Types.Decimal128',

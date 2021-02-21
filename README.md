@@ -117,7 +117,8 @@ List of mongoose supported options
     'minLength',
     'maxLength',
     'min',
-    'max'
+    'max',
+    'ref',
 ```
 List of mongoose supported options (please be careful about the register).
 ```
@@ -127,6 +128,7 @@ List of mongoose supported options (please be careful about the register).
     'Buffer',
     'Boolean',
     'Map',
+    'Schema.ObjectId',
     'Schema.Types.Mixed',
     'Schema.Types.ObjectId',
     'Schema.Types.Decimal128',

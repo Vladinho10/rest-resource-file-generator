@@ -3,7 +3,8 @@ const { strings } = require('../helpers/general');
 const util = require('util');
 
 module.exports = function (resourceName = '', { services, models = {} }) {
-    const PascalCaseName = strings.toPascalCase(resourceName);
+    const camelCaseName = strings.toCamelCase(resourceName);
+    const PascalCaseName = strings.toPascalCase(camelCaseName);
     const { variableName: service, modelsDir = '../dal/models', fileBody } = services;
     const { variableName: model = PascalCaseName } = models;
 

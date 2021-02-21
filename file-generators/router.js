@@ -4,7 +4,8 @@ const { strings } = require('../helpers/general');
 
 module.exports = function (resourceName, { routers = {}, controllers = {} }) {
     const pluralizedName = pluralize.plural(resourceName);
-    const PascalCaseName = strings.toPascalCase(resourceName);
+    const camelCaseName = strings.toCamelCase(resourceName);
+    const PascalCaseName = strings.toPascalCase(camelCaseName);
     const { variableName: router, controllersDir = '../controllers', basePath = 'v1' } = routers;
     const { variableName: controller = `${PascalCaseName}Ctrl` } = controllers;
 

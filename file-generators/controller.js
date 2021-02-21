@@ -2,7 +2,8 @@
 const { strings } = require('../helpers/general');
 
 module.exports = function (resourceName, { controllers, services = {} }) {
-    const PascalCaseName = strings.toPascalCase(resourceName);
+    const camelCaseName = strings.toCamelCase(resourceName);
+    const PascalCaseName = strings.toPascalCase(camelCaseName);
     const { variableName: controller, servicesDir = '../services' } = controllers;
     const { variableName: service = `${PascalCaseName}Srv` } = services;
 

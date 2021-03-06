@@ -1,43 +1,34 @@
 'use strict';
-const util = require('util');
+const pluralize = require('pluralize');
+const { strings } = require('../helpers/general');
 
-module.exports = function ({ services, models = {} }) {
-    const {
-        PascalCaseName,
-        variableName: service,
-        modelsDir = '../dal/models',
-        fileBody } = services;
-    const { variableName: model = PascalCaseName } = models;
+const defaultBody = require('../rest-resources/service-body');
 
-    const body = fileBody ? util.format(fileBody, service) : `'use strict';
-const { ${model} } = require('${modelsDir}');
+module.exports = function ({ services = {} }) {
+    const { resourceName, params, body } = services;
+    const camelCaseName = strings.toCamelCase(resourceName);
+    const pascalCaseName = strings.toPascalCase(camelCaseName);
+    const pluralizedName = pluralize.plural(resourceName);
 
-class ${service} {
-    static async readOne() {
-        
+    let fileBody = body || defaultBody;
+
+    for (const key in params) {
+        if (params[key].includes('camelCaseName')) {
+            params[key] = params[key].replace('camelCaseName', camelCaseName);
+        }
+
+        if (params[key].includes('pascalCaseName')) {
+            params[key] = params[key].replace('pascalCaseName', pascalCaseName);
+        }
+
+        if (params[key].includes('pluralizedName')) {
+            params[key] = params[key].replace('pluralizedName', pluralizedName);
+        }
+
+        const re = new RegExp(key, 'g');
+        fileBody = fileBody.replace(re, params[key]);
     }
-    
-    static async readMany() {
-        
-    }
 
-    static async createOne() {
-        
-    }
-
-    static async updateOne() {
-        
-    }
-
-    static async removeOne() {
-        
-    }
-}
-
-module.exports = {
-    ${service},
+    return fileBody;
 };
-`;
 
-    return body;
-};

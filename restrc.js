@@ -1,73 +1,56 @@
 'use strict';
 const { strings } = require('./helpers/general');
 
-module.exports = function (resourceName) {
+module.exports = function (resourceName, bodies) {
     const camelCaseName = strings.toCamelCase(resourceName);
     const PascalCaseName = strings.toPascalCase(camelCaseName);
-    const options = {
-        resourceName,
-        camelCaseName,
-        PascalCaseName,
-        basePath: 'v1',
-    };
 
     return {
         routers: {
-            ...options,
+            resourceName,
+            body: bodies.routerBody,
             fileName: `routers/${resourceName}-rt.js`,
-            variableName: `${camelCaseName}Rt`,
-            controllersDir: '../controllers',
+            params: {
+                dir: '../controllers',
+                basePath: 'v1',
+                routerName: 'camelCaseNameRt',
+                controllerName: 'pascalCaseNameCtrl',
+                pathName: 'pluralizedName',
+            },
         },
-        controllers: {
-            ...options,
-            fileName: `controllers/${resourceName}-ctrl.js`,
-            variableName: `${PascalCaseName}Ctrl`,
-            servicesDir: '../services',
-        },
+        // controllers: {
+        //     ...options,
+        //     fileName: `controllers/${resourceName}-ctrl.js`,
+        //     variableName: `${PascalCaseName}Ctrl`,
+        //     servicesDir: '../services',
+        // },
         services: {
-            ...options,
+            resourceName,
+            body: bodies.serviceBody,
             fileName: `services/${resourceName}-srv.js`,
-            variableName: `${PascalCaseName}Srv`,
-            modelsDir: '../dal/models',
-            fileBody: `class %s {
-    static async readOne() {
-
-    }
-
-    static async readMany() {
-
-    }
-
-    static async createOne() {
-
-    }
-
-    static async updateOne() {
-
-    }
-
-    static async removeOne() {
-
-    }
-}`,
+            params: {
+                model: PascalCaseName,
+                dir: '../dal/models',
+                ServiceClassName: `${PascalCaseName}Srv`,
+            },
         },
-        models: {
-            ...options,
-            fileName: `dal/models/${resourceName}.js`,
-            variableName: camelCaseName,
-        },
-        unitTests: {
-            fileName: `tests/unit/${resourceName}-test.js`,
-            controllersDir: '../controllers',
-            variableName: PascalCaseName,
-        },
-        swaggerPaths: {
-            ...options,
-            fileName: `docs/swagger/paths/${resourceName}-path.json`,
-        },
-        swaggerSchemas: {
-            fileName: `docs/swagger/schemas/${resourceName}-schema.json`,
-        },
+        // models: {
+        //     ...options,
+        //     fileName: `dal/models/${resourceName}.js`,
+        //     variableName: camelCaseName,
+        // },
+        // unitTests: {
+        //     fileName: `tests/unit/${resourceName}-test.js`,
+        //     controllersDir: '../controllers',
+        //     variableName: PascalCaseName,
+        // },
+        // swaggerPaths: {
+        //     ...options,
+        //     fileName: `docs/swagger/paths/${resourceName}-path.json`,
+        // },
+        // swaggerSchemas: {
+        //     fileName: `docs/swagger/schemas/${resourceName}-schema.json`,
+        // },
     };
 };
 

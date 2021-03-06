@@ -14,9 +14,22 @@ const jsonParser = jsonString => {
     return data;
 };
 
+const skip = (obj, fields) => {
+    const skipped = {};
+
+    for (const key in obj) {
+        if (!fields.includes(key)) {
+            skipped[key] = obj[key];
+        }
+    }
+
+    return skipped;
+};
+
 const objects = {
     isEmptyObject,
     jsonParser,
+    skip,
 };
 
 const isUppercase = str => /^[A-Z]/.test(str);

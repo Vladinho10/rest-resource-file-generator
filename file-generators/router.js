@@ -1,29 +1,34 @@
 'use strict';
 const pluralize = require('pluralize');
+const { strings } = require('../helpers/general');
 
-module.exports = function ({ routers = {}, controllers = {} }) {
-    const {
-        resourceName,
-        PascalCaseName,
-        variableName: router,
-        controllersDir = '../controllers',
-        basePath = 'v1',
-    } = routers;
+const defaultBody = require('../rest-resources/router-body');
+
+module.exports = function ({ routers = {} }) {
+    const { resourceName, params, body } = routers;
+    const camelCaseName = strings.toCamelCase(resourceName);
+    const pascalCaseName = strings.toPascalCase(camelCaseName);
     const pluralizedName = pluralize.plural(resourceName);
-    const { variableName: controller = `${PascalCaseName}Ctrl` } = controllers;
 
-    return `'use strict';
-const ${router} = require('express').Router();
+    let fileBody = body || defaultBody;
 
-const { ${controller} } = require('${controllersDir}');
+    for (const key in params) {
+        if (params[key].includes('camelCaseName')) {
+            params[key] = params[key].replace('camelCaseName', camelCaseName);
+        }
 
-${router}.get('/${basePath}/${pluralizedName}/:_id', ${controller}.getOne);
-${router}.get('/${basePath}/${pluralizedName}', ${controller}.getMany);
-${router}.post('/${basePath}/${pluralizedName}', ${controller}.post);
-${router}.put('/${basePath}/${pluralizedName}/:_id', ${controller}.putOne);
-${router}.delete('/${basePath}/${pluralizedName}/:_id', ${controller}.deleteOne);
+        if (params[key].includes('pascalCaseName')) {
+            params[key] = params[key].replace('pascalCaseName', pascalCaseName);
+        }
 
-module.exports = ${router};
-`;
+        if (params[key].includes('pluralizedName')) {
+            params[key] = params[key].replace('pluralizedName', pluralizedName);
+        }
+
+        const re = new RegExp(key, 'g');
+        fileBody = fileBody.replace(re, params[key]);
+    }
+
+    return fileBody;
 };
 

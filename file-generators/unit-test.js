@@ -1,65 +1,34 @@
 'use strict';
-module.exports = function ({ unitTests = {}, controllers = {} }) {
-    const { controllersDir = '../../controllers', variableName } = unitTests;
-    const { variableName: controller = `${variableName}Ctrl` } = controllers;
+const pluralize = require('pluralize');
+const { strings } = require('../helpers/general');
 
-    return `'use strict';
-const sinon = require('sinon');
-const { assert } = require('chai');
+const defaultBody = require('../rest-resources/unit-test-body');
 
-const { ${controller} } = require('${controllersDir}');
-const { CustomError } = require('../../services');
+module.exports = function ({ unitTests = {} }) {
+    const { resourceName, params, body } = unitTests;
+    const camelCaseName = strings.toCamelCase(resourceName);
+    const pascalCaseName = strings.toPascalCase(camelCaseName);
+    const pluralizedName = pluralize.plural(resourceName);
 
-const mockReq = (body = {}, query = {}, params = {}, headers = {}) => ({
-    body,
-    query,
-    params,
-    headers,
-    get() {},
-});
-const mockRes = (method, statusCode) => ({
-    [method](args) {
-        return {
-            statusCode,
-            ...args,
-        };
-    },
-});
+    let fileBody = body || defaultBody;
 
-before(() => {
-    global.CustomError = CustomError;
-});
+    for (const key in params) {
+        if (params[key].includes('camelCaseName')) {
+            params[key] = params[key].replace('camelCaseName', camelCaseName);
+        }
 
-describe('${variableName}', () => {
-    describe('#getMany', () => {
-        it('should return status code 200', async () => {
+        if (params[key].includes('pascalCaseName')) {
+            params[key] = params[key].replace('pascalCaseName', pascalCaseName);
+        }
 
-        });
-    });
-    describe('#getOne', () => {
-        it('should return status code 200', async () => {
+        if (params[key].includes('pluralizedName')) {
+            params[key] = params[key].replace('pluralizedName', pluralizedName);
+        }
 
-        });
-    });
-    describe('#post', () => {
-        it('should return status code 201', async () => {
+        const re = new RegExp(key, 'g');
+        fileBody = fileBody.replace(re, params[key]);
+    }
 
-        });
-    });
-    describe('#put', () => {
-        it('should return status code 202', async () => {
-
-        });
-    });
-    describe('#delete', () => {
-        it('should return status code 204', async () => {
-
-        });
-    });
-});
-
-after(() => {
-    sinon.restore();
-});
-`;
+    return fileBody;
 };
+

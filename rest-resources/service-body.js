@@ -1,6 +1,6 @@
 'use strict';
 module.exports = `'use strict';
-const { model } = require('dir');
+const { modelName } = require('dir');
 
 class ServiceClassName {
     static async readOne() {

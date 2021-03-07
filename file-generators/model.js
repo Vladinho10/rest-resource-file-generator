@@ -1,22 +1,42 @@
 'use strict';
-module.exports = function ({ models }, fields = {}) {
-    const mongooseSchema = JSON.stringify({ ...fields,
+const pluralize = require('pluralize');
+const { strings } = require('../helpers/general');
+
+const defaultBody = require('../rest-resources/model-body');
+
+module.exports = function ({ models = {} }, fields) {
+    const stringifiedSchemaObject = JSON.stringify({ ...fields,
         created: { type: 'Date', default: Date.now }, updated: { type: 'Date', default: Date.now },
     }, null, 2);
-    const {
-        camelCaseName,
-        PascalCaseName,
-        fileBody,
-    } = models;
 
-    return `'use strict';
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+    const { resourceName, params, body } = models;
+    const camelCaseName = strings.toCamelCase(resourceName);
+    const pascalCaseName = strings.toPascalCase(camelCaseName);
+    const pluralizedName = pluralize.plural(resourceName);
 
-const ${camelCaseName}Schema = new Schema(${mongooseSchema});
+    let fileBody = body || defaultBody;
 
-const ${PascalCaseName} = mongoose.model('${PascalCaseName}', ${camelCaseName}Schema);
+    for (const key in params) {
+        if (params[key].includes('camelCaseName')) {
+            params[key] = params[key].replace('camelCaseName', camelCaseName);
+        }
 
-module.exports = { ${PascalCaseName} };
-`;
+        if (params[key].includes('pascalCaseName')) {
+            params[key] = params[key].replace('pascalCaseName', pascalCaseName);
+        }
+
+        if (params[key].includes('pluralizedName')) {
+            params[key] = params[key].replace('pluralizedName', pluralizedName);
+        }
+
+        const re = new RegExp(key, 'g');
+        fileBody = fileBody.replace(re, params[key]);
+    }
+
+    fileBody = fileBody.replace('stringifiedSchemaObject', stringifiedSchemaObject);
+
+    console.log(fileBody);
+
+    return fileBody;
 };
+

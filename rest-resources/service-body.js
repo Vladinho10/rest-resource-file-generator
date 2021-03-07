@@ -2,7 +2,7 @@
 module.exports = `'use strict';
 const { modelName } = require('dir');
 
-class ServiceClassName {
+class serviceName {
     static async readOne() {
         
     }
@@ -25,6 +25,6 @@ class ServiceClassName {
 }
 
 module.exports = {
-    ServiceClassName,
+    serviceName,
 };
 `;

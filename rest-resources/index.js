@@ -1,16 +1,16 @@
 'use strict';
-const serviceBody = require('./service-body');
-const controllerBody = require('./controller-body');
-const routerBody = require('./router-body');
-const modelBody = require('./model-body');
-const unitTestBody = require('./unit-test-body');
-const swaggerPathBody = require('./swagger-path-body');
+const services = require('./services');
+const controllers = require('./controllers');
+const routers = require('./routers');
+const models = require('./models');
+const unitTests = require('./unitTests');
+const swaggerPaths = require('./swaggerPaths');
 
 module.exports = {
-    serviceBody,
-    controllerBody,
-    routerBody,
-    modelBody,
-    unitTestBody,
-    swaggerPathBody,
+    services,
+    controllers,
+    routers,
+    models,
+    unitTests,
+    swaggerPaths,
 };

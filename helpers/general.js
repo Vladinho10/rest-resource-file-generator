@@ -34,7 +34,7 @@ const objects = {
 
 const isUppercase = str => /^[A-Z]/.test(str);
 
-const toPascalCase = str => str[0].toUpperCase() + str.slice(1);
+const toPascalCase = str => str && str[0].toUpperCase() + str.slice(1);
 
 const toCamelCase = str => {
     const words = str.split(/\W/g).filter(Boolean);

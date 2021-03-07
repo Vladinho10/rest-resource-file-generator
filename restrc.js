@@ -1,5 +1,4 @@
 'use strict';
-
 module.exports = function (resourceName, bodies) {
     return {
         routers: {
@@ -22,7 +21,6 @@ module.exports = function (resourceName, bodies) {
                 dir: '../services',
                 controllerName: 'pascalCaseNameCtrl',
                 serviceName: 'pascalCaseNameSrv',
-
             },
         },
         services: {
@@ -39,7 +37,7 @@ module.exports = function (resourceName, bodies) {
             resourceName,
             body: bodies.modelBody,
             fileName: `dal/models/${resourceName}.js`,
-            params: { // find in string by variable name
+            params: { // find in string by key name
                 modelName: 'pascalCaseName',
                 schemaName: 'camelCaseNameSchema',
             },
@@ -49,7 +47,7 @@ module.exports = function (resourceName, bodies) {
             body: bodies.unitTestBody,
             fileName: `tests/unit/${resourceName}-test.js`,
             params: {
-                dir: '../controllers', // key and values must be different words
+                dir: '../controllers', // key and values contain be different words
                 controllerName: 'pascalCaseNameCtrl',
                 testName: 'pascalCaseName',
             },

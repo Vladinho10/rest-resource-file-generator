@@ -7,6 +7,7 @@ const args = process.argv.slice(2);
 let fileName = '';
 let fields = {};
 let localRestrc = false;
+let localBodies = false;
 
 const nameIndex = args.indexOf('-N');
 
@@ -14,10 +15,16 @@ if (nameIndex > -1) {
     fileName = args[nameIndex + 1];
 }
 
-const restrcIndex = args.indexOf('-LR');
+const localRestrcIndex = args.indexOf('-LR');
 
-if (restrcIndex > -1) {
-    localRestrc = args[restrcIndex + 1] === 'yes';
+if (localRestrcIndex > -1) {
+    localRestrc = args[localRestrcIndex + 1] === 'yes';
+}
+
+const localBodiesIndex = args.indexOf('-LB');
+
+if (localBodiesIndex > -1) {
+    localBodies = args[localBodiesIndex + 1] === 'yes';
 }
 
 const fieldIndex = args.indexOf('-F');
@@ -27,5 +34,5 @@ if (fieldIndex > -1) {
     fields = generateSchema(fieldsArray);
 }
 
-create(fileName, fields, localRestrc);
+create(fileName, fields, localRestrc, localBodies);
 

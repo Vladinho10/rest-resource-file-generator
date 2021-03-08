@@ -7,6 +7,7 @@
 * [Usage](#usage)
 
 ### General info
+:new: You can use it also in front end side for creating file as in back end. Just follow the instructions. \
 As a backend developer all we know that every time when we want to add new API, new logic, new CRUD, we create some file and write into them some codes.\
 For example when we what to create a logic (let's call it `resource`) about user, we create
 a router. 

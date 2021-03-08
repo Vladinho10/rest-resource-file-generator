@@ -3,7 +3,7 @@ module.exports = function (resourceName, bodies) {
     return {
         routers: {
             resourceName,
-            body: bodies.routerBody,
+            body: bodies.routers,
             fileName: `routers/${resourceName}-rt.js`,
             params: {
                 dir: '../controllers',
@@ -15,7 +15,7 @@ module.exports = function (resourceName, bodies) {
         },
         controllers: {
             resourceName,
-            body: bodies.controllerBody,
+            body: bodies.controllers,
             fileName: `controllers/${resourceName}-ctrl.js`,
             params: {
                 dir: '../services',
@@ -25,7 +25,7 @@ module.exports = function (resourceName, bodies) {
         },
         services: {
             resourceName,
-            body: bodies.serviceBody,
+            body: bodies.services,
             fileName: `services/${resourceName}-srv.js`,
             params: {
                 modelName: 'pascalCaseName',
@@ -35,7 +35,7 @@ module.exports = function (resourceName, bodies) {
         },
         models: {
             resourceName,
-            body: bodies.modelBody,
+            body: bodies.models,
             fileName: `dal/models/${resourceName}.js`,
             params: { // find in string by key name
                 modelName: 'pascalCaseName',
@@ -44,16 +44,17 @@ module.exports = function (resourceName, bodies) {
         },
         unitTests: {
             resourceName,
-            body: bodies.unitTestBody,
+            body: bodies.unitTests,
             fileName: `tests/unit/${resourceName}-test.js`,
             params: {
-                dir: '../controllers', // key and values contain be different words
+                dir: '../controllers', // key and values must contain different words
                 controllerName: 'pascalCaseNameCtrl',
                 testName: 'pascalCaseName',
             },
         },
         swaggerPaths: {
             resourceName,
+            body: bodies.swaggerPaths,
             fileName: `docs/swagger/paths/${resourceName}-path.json`,
             params: {
                 basePath: 'v1',

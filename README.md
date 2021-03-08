@@ -38,47 +38,112 @@ Before setup please ensure that you use Node.js v12 version or above.
   npm i -g rest-resource-file-generator
 ```
 * create a `rest.js` local config file in your project's root directory like default config file below\
-You can dynamically change creating filename, variableName in your code, API base path, or change leave only files you need. 
 ```
 'use strict';
-module.exports = function (resourceName) {
-    const PascalCaseName = resourceName[0].toUpperCase() + resourceName.slice(1);
-
+module.exports = function (resourceName, bodies) {
     return {
         routers: {
+            resourceName,
+            body: bodies.routers,
             fileName: `routers/${resourceName}-rt.js`,
-            variableName: `${resourceName}Rt`,
-            controllersDir: '../controllers',
-            basePath: 'v1',
+            params: {
+                dir: '../controllers',
+                basePath: 'v1',
+                routerName: 'camelCaseNameRt',
+                controllerName: 'pascalCaseNameCtrl',
+                pathName: 'pluralizedName',
+            },
         },
         controllers: {
+            resourceName,
+            body: bodies.controllers,
             fileName: `controllers/${resourceName}-ctrl.js`,
-            variableName: `${PascalCaseName}Ctrl`,
-            servicesDir: '../services',
+            params: {
+                dir: '../services',
+                controllerName: 'pascalCaseNameCtrl',
+                serviceName: 'pascalCaseNameSrv',
+            },
         },
         services: {
+            resourceName,
+            body: bodies.services,
             fileName: `services/${resourceName}-srv.js`,
-            variableName: `${PascalCaseName}Srv`,
-            modelsDir: '../dal/models',
+            params: {
+                modelName: 'pascalCaseName',
+                dir: '../dal/models',
+                serviceName: 'pascalCaseNameSrv',
+            },
         },
         models: {
+            resourceName,
+            body: bodies.models,
             fileName: `dal/models/${resourceName}.js`,
-            variableName: `${PascalCaseName}`,
+            params: { // find in string by key name
+                modelName: 'pascalCaseName',
+                schemaName: 'camelCaseNameSchema',
+            },
+        },
+        unitTests: {
+            resourceName,
+            body: bodies.unitTests,
+            fileName: `tests/unit/${resourceName}-test.js`,
+            params: {
+                dir: '../controllers', // key and values must contain different words
+                controllerName: 'pascalCaseNameCtrl',
+                testName: 'pascalCaseName',
+            },
+        },
+        swaggerPaths: {
+            resourceName,
+            body: bodies.swaggerPaths,
+            fileName: `docs/swagger/paths/${resourceName}-path.json`,
+            params: {
+                basePath: 'v1',
+                schemaName: 'camelCaseNameSchema',
+                tagName: 'pascalCaseName',
+                pathName: 'pluralizedName',
+            },
         },
         swaggerSchemas: {
             fileName: `docs/swagger/schemas/${resourceName}-schema.json`,
-        },
-        swaggerPaths: {
-            fileName: `docs/swagger/paths/${resourceName}-path.json`,
-        },
-        unitTests: {
-            fileName: `tests/unit/${resourceName}-test.js`,
-            controllersDir: '../controllers',
         },
     };
 };
 ```
 If you don't create local config file, it'll be created from global configuration.
+Also, you can dynamically change creating filename and its body in your code as you need. For that you should create local resources bodies, as in example, or your files' body will be taken from global resource-bodies directory.  
+For using local bodies, please create a `resource-bodies` directory and export all you local resource bodies. Files in that must have these special names as in below image.
+
+<img src="https://github.com/Vladinho10/rest-resource-file-generator/blob/main/files/bodies.png?raw=true"  alt="command-line"/> 
+
+This is a bodyFiles example for routers. You can dynamically change your file's content as you want.
+```
+'use strict';
+module.exports = `'use strict';
+const routerName = require('express').Router();
+
+const { controllerName } = require('dir');
+
+routerName.get('/basePath/pathName/:_id', controllerName.getOne);
+routerName.get('/basePath/pathName', controllerName.getMany);
+routerName.post('/basePath/pathName', controllerName.post);
+routerName.put('/basePath/pathName/:_id', controllerName.putOne);
+routerName.delete('/basePath/pathName/:_id', controllerName.deleteOne);
+
+module.exports = routerName;
+`;
+``` 
+
+In this example we set dynamically `dir`, `basePath`, `routerName`, `controllerName`, `pathName` which will be replace in file's body with values you set here (restrc.js  routers params)
+```
+{
+     dir: '../controllers',
+     basePath: 'v1',
+     routerName: 'camelCaseNameRt',
+     controllerName: 'pascalCaseNameCtrl',
+     pathName: 'pluralizedName',
+}
+```
 
 ### Usage
 There is an only one command `rest resource`, but there are some flags what you need to know.
@@ -134,3 +199,5 @@ List of mongoose supported options (please be careful about the register).
     'Schema.Types.Decimal128',
 ```
 These lists will be expanded in the future.
+
+P.S. This module works perfectly with my node-server-template, here its link [Node-server](https://github.com/Vladinho10/node-server-template)

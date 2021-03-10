@@ -3,7 +3,7 @@ module.exports = {
     'basePath/pathName': {
         get: {
             summary: 'Get many resources',
-            tags: 'tagName',
+            tags: ['tagName'],
             parameters: [
                 {
                     in: 'query',
@@ -48,7 +48,7 @@ module.exports = {
         },
         post: {
             summary: 'Create a new resource',
-            tags: 'tagName',
+            tags: ['tagName'],
             requestBody: {
                 required: true,
                 content: {
@@ -74,7 +74,7 @@ module.exports = {
         },
         put: {
             summary: 'Update many resources',
-            tags: 'tagName',
+            tags: ['tagName'],
             requestBody: {
                 required: true,
                 content: {
@@ -111,7 +111,7 @@ module.exports = {
         },
         patch: {
             summary: 'Delete many resource',
-            tags: 'tagName',
+            tags: ['tagName'],
             parameters: [
                 {
                     in: 'query',
@@ -130,10 +130,10 @@ module.exports = {
             },
         },
     },
-    'basePath}/pathName}/{_id': {
+    'basePath/pathName/{_id}': {
         get: {
             summary: 'Get a resource by id',
-            tags: 'tagName',
+            tags: ['tagName'],
             parameters: [
                 {
                     name: '_id',
@@ -158,7 +158,7 @@ module.exports = {
         },
         put: {
             summary: 'update a resource by id',
-            tags: 'tagName',
+            tags: ['tagName'],
             parameters: [
                 {
                     name: '_id',
@@ -183,7 +183,7 @@ module.exports = {
         },
         delete: {
             summary: 'delete a resource by id',
-            tags: 'tagName',
+            tags: ['tagName'],
             parameters: [
                 {
                     name: '_id',

@@ -113,7 +113,7 @@ module.exports = function (resourceName, bodies) {
 ```
 If you don't create local config file, it'll be created from global configuration.
 Also, you can dynamically change creating filename and its body in your code as you need. For that you should create local resources bodies, as in example, or your files' body will be taken from global resource-bodies directory.  
-For using local bodies, please create a `resource-bodies` directory and export all you local resource bodies. Files in that must have these special names as in below image.
+For using local bodies, please create a `resource-bodies` directory and export all you local resource bodies. Files in that must have these special names as in below image. The file names and `restrc.js` returning object's key name must be the same.
 
 <img src="https://github.com/Vladinho10/rest-resource-file-generator/blob/main/files/bodies.png?raw=true"  alt="command-line"/> 
 

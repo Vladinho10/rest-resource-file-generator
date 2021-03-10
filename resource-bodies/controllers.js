@@ -3,11 +3,11 @@ module.exports = `'use strict';
 const { serviceName } = require('dir');
 
 class controllerName {
-    static async getMany(req, res) {
+    static async getOne(req, res) {
         
     }
-
-    static async getOne(req, res) {
+    
+    static async getMany(req, res) {
         
     }
 

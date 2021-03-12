@@ -8,8 +8,8 @@
 
 ### General info
 :new: You can use it also in front end side for creating file as in back end. Just follow the instructions. \
-As a backend developer all we know that every time when we want to add new API, new logic, new CRUD, we create some file and write into them some codes.\
-For example when we what to create a logic (let's call it `resource`) about user, we create
+As a backend developer all we know that every time when we want to add new API, new logic, new CRUD, we create some files and write into them some codes.\
+For example when we want to create a logic (let's call it `resource`) about user, we create
 a router. 
 ```
     userRt.get('/v1/users', UserCtrl.getMany);
@@ -24,8 +24,8 @@ a controller.
      // here should be your code, where it's called service or db model or smth else
     }
 ```
-then we usually create a service, a model, a test, swagger schema and so on. Almost 6-7 files every time.
-So this package allows you to generate all this files at once just call a CLI command and be make your life easy :)  
+then we usually create a service, a model, tests, swagger schema and so on. Almost 6-7 files every time.
+So this package allows you to generate all this files at once just run a CLI command and make your life easy :)  
 
 
 ### About RESTful
@@ -33,6 +33,7 @@ Why did I decide to use `rest resource` name? Because I connect this log with RE
 For more info, please see here [here](https://restfulapi.net/). That's why I chose REST resource.
 
 ### Setup
+Now I created a generator for Mongodb/Mongoose scheme/model. In the next version you'll be able to choose SQL/Sequelize else.
 Before setup please ensure that you use Node.js v12 version or above.
 * install package
 ```
@@ -112,6 +113,8 @@ module.exports = function (resourceName, bodies) {
 };
 ```
 If you don't create local config file, it'll be created from global configuration.
+It's allowed to make your variable `resourceName` to camelCase, PascalCase or pluralized.\
+E.g. resourceName is `my-child`, camelCase will be `myChild`, PascalCase `MyChild`, pluralized-`myChildren`.\
 Also, you can dynamically change creating filename and its body in your code as you need. For that you should create local resources bodies, as in example, or your files' body will be taken from global resource-bodies directory.  
 For using local bodies, please create a `resource-bodies` directory and export all you local resource bodies. Files in that must have these special names as in below image. The file names and `restrc.js` returning object's key name must be the same.
 
@@ -194,7 +197,7 @@ List of mongoose supported options (please be careful about the register).
     'Buffer',
     'Boolean',
     'Map',
-    'Schema.ObjectId',
+    'Schema.ObjectId', // since here to below you must take quotes, othervise it throws an error.
     'Schema.Types.Mixed',
     'Schema.Types.ObjectId',
     'Schema.Types.Decimal128',
